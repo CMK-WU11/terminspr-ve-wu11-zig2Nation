@@ -1,21 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: #5E2E53;
+}
+main{
+  height: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/*Mine hoved farver til mit tema*/
+/*#EAEAEA
+  #5E2E53 
+  #E1A1E9
+  #000000 
+*/
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
+
+/*mine tekst slags*/
+/*
+ Ubuntu
+ og i logoet: Roboto, Racing Sans One
+*/
+/*
+Skriftstørrelser: 18, 24, 36 
+*/
