@@ -1,4 +1,6 @@
 import { serverFetch } from "@/lib/serverFetch";
+import MultiKnap from "@/Components/multiKnap";
+import Footer from "@/Components/footer";
 
 // Agent interface (tilføjet antagede felter for informationer)
 interface Detaljer {
@@ -7,25 +9,38 @@ interface Detaljer {
     description: string;
     minAge: number;
     maxAge: number;
-    url: any;
+    url: string;
     asset: any;
 }
 
-export default async function Detalje() {
-    try {
-        // Hent ejendom- og agentdata det her er for og slippe for og lave fetch alle steder med en server side function
-        const detalje: Detaljer[] = await serverFetch("http://localhost:4000/api/v1/activities/1");
 
+export default async function Detalje({ params }: {params : { id : string}}) {
+    try {
+        // hent detaljer om dansende og for undgå og lave fetch kald alle steder bruger vi server side function
+        const detalje: Detaljer = await serverFetch(`http://localhost:4000/api/v1/activities/${params.id}`);
+        console.log(detalje);
+        
         return (
             <>
-                <div>
-                    {detalje.map((information) => (
-                    <div className="relative max-w-xl mx-auto mt-5">
-                        <img className="h-64 w-full object-cover rounded-xl" src={information.description} alt="billed af de forskellige danse"/>
-                    </div>
-                        
-                    ))}
+            <article className="w-full bg-cover bg-center">
+                <div className="w-full bg-cover bg-center h-[25em] ">
+                    <img src={detalje.asset.url} alt="" className="h-full w-full object-cover"/>
                 </div>
+                <div className=" ml-32 mt-[-4em] absolute">
+                  <MultiKnap title="Tilmeld"/>
+                </div>
+            </article>
+            <div>
+            <section>
+                <article className="p-5 text-white gap-4 text-lg">
+                    <h2 className="text-2xl">{detalje.name}</h2>
+                    <p>{detalje.minAge}-{detalje.maxAge} år</p>
+                    <p>{detalje.description}</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At aliquid sint saepe possimus quam, in corporis! Hic atque cumque optio. Optio enim numquam veniam nam, odio minima quia. Distinctio, pariatur.</p>
+                </article>
+            </section>
+            </div>
+            <Footer/>
             </>
             
         );

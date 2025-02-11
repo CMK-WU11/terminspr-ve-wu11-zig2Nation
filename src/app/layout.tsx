@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="da">
-      <body>
+      <body className="flex-nowrap">
         <main>
           {children}
         </main>
