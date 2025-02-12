@@ -1,8 +1,12 @@
 interface MultiKnapProps{
-    title: string
+    title: string;
+    onClick: () => void
+
 }
-export default function MultiKnap({ title }: MultiKnapProps) {
+export default function MultiKnap({ title, onClick }: MultiKnapProps) {
     return(
-        <button className="bg-[#5E2E53] w-[15em] h-[3em] text-white rounded-md shadow-2xl">{title}</button>
+        <button onClick={onClick} className="bg-[#5E2E53] w-[15em] h-[3em] text-white rounded-md shadow-2xl">
+            {title}
+        </button>
     )
 }

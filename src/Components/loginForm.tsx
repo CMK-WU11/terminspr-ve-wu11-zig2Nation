@@ -1,7 +1,5 @@
-// dette er kode fra uge 6 med repeat 
+// dette er gmmel kode fra uge 6 med repeat 
 import Login from "@/actions/login";
-import { redirect } from "next/navigation";
-import MultiKnap from "@/Components/multiKnap";
 import { useActionState, useEffect } from "react";
 import Splash from "../../public/splash-image.jpg"
 import Image from "next/image";
@@ -32,7 +30,7 @@ export default function LoginForm() {
                         className="border h-10 p-3 w-full bg-[#EAEAEA]"
                     />
                 </label>
-                <span className="text-red-500">{formState?.errors?.identifier?._errors[0]}</span>
+                <span className="text-red-500">{formState?.error}</span>
             </div>
 
             <div className="w-full">
@@ -45,12 +43,21 @@ export default function LoginForm() {
                         className="border h-10 p-3 w-full bg-[#EAEAEA]"
                     />
                 </label>
-                <span className="text-red-500">{formState?.errors?.password?._errors[0]}</span>
+                <span className="text-red-500">{formState?.error}
+                </span>
             </div>
-
-            <span className="text-red-600">{formState?.error}</span>
+            <div>
+              <input type="checkbox" id="keep loegged in" name="loggedin" value="on"/>
+              <label htmlFor="keep-logged-in">hold mig logget ind</label>
+            </div>
+            <div>
+                <input type="chekbox" 
+                id="keep-logged-in"
+                name="loggedin"
+                value="on"
+                defaultChecked={formState?.formData?.loggedin === "0"}/>
+            </div>
                 <div className="w-full flex items-center justify-center">
-
                     <button disabled={isPending} type="submit" className="p-2 bg-blue-600 disabled:bg-gray-600">
                         {isPending ? "Logger ind..." : "Log ind"}
                      </button>

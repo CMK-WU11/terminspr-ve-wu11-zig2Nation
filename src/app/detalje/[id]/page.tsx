@@ -1,6 +1,8 @@
 import { serverFetch } from "@/lib/serverFetch";
 import MultiKnap from "@/Components/multiKnap";
 import Footer from "@/Components/footer";
+import Tilmeld from "@/actions/tilmeld";
+import TilmeldButton from "@/Components/tilmeldButton";
 
 // Agent interface (tilføjet antagede felter for informationer)
 interface Detaljer {
@@ -19,6 +21,7 @@ export default async function Detalje({ params }: {params : { id : string}}) {
         // hent detaljer om dansende og for undgå og lave fetch kald alle steder bruger vi server side function
         const detalje: Detaljer = await serverFetch(`http://localhost:4000/api/v1/activities/${params.id}`);
         console.log(detalje);
+
         
         return (
             <>
@@ -27,7 +30,7 @@ export default async function Detalje({ params }: {params : { id : string}}) {
                     <img src={detalje.asset.url} alt="" className="h-full w-full object-cover"/>
                 </div>
                 <div className=" ml-32 mt-[-4em] absolute">
-                  <MultiKnap title="Tilmeld"/>
+                  <TilmeldButton danceId={params.id}/>
                 </div>
             </article>
             <div>

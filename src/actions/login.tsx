@@ -5,7 +5,8 @@ import { redirect } from "next/navigation";
 export default async function Login(prevState: any, formData: FormData) {
     const identifier = formData.get("identifier") as string | null;
     const password = formData.get("password") as string | null;
-    console.log(identifier, password);
+    const rememberMe = formData.get("loggedin") === "on" ? "o" : null
+    console.log(identifier, password, rememberMe);
     
     if (!identifier || !password) {
         return {
@@ -28,15 +29,16 @@ export default async function Login(prevState: any, formData: FormData) {
         }
 
         const data = await response.json();
-        console.log(data, "hallo so");
         
-
         const cookieStore = await cookies();
-        cookieStore.set("repe_token", data.token, { maxAge: 60 * 60 * 24 });
+        const cookieMaxAge = rememberMe ? 60 * 60 * 24 * 30 : 60 * 60 * 24
+        cookieStore.set("repe_token", data.token, {maxAge: cookieMaxAge})
 
     } catch (err) {
         throw new Error(err instanceof Error ? err.message : "Der skete en fejl under login");
     }
 
+    
     redirect("/kalender");
+
 }
