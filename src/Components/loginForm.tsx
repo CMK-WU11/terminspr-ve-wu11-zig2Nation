@@ -3,12 +3,20 @@ import Login from "@/actions/login";
 import { useActionState, useEffect } from "react";
 import Splash from "../../public/splash-image.jpg"
 import Image from "next/image";
+import MultiKnap from "./multiKnap";
+
 export default function LoginForm() {
     const [formState, formAction, isPending] = useActionState(Login, null);
 
     useEffect(() => {
         console.log("formState", formState);
     }, [formState]);
+
+    const handlesubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        const formData = new FormData(event.currentTarget)
+        formAction(formData)
+    }
     return(
         <>
         <div className="w-full bg-cover bg-center absolute">
@@ -30,7 +38,7 @@ export default function LoginForm() {
                         className="border h-10 p-3 w-full bg-[#EAEAEA]"
                     />
                 </label>
-                <span className="text-red-500">{formState?.error}</span>
+                <span className="text-red-500">{formState?.error && !formState?.formData?.password ? formState?.error : ""}</span>
             </div>
 
             <div className="w-full">
@@ -43,24 +51,17 @@ export default function LoginForm() {
                         className="border h-10 p-3 w-full bg-[#EAEAEA]"
                     />
                 </label>
-                <span className="text-red-500">{formState?.error}
+                <span className="text-red-500">{formState?.error && formState?.formData?.identifier ? formState?.error : ""}
                 </span>
             </div>
             <div>
               <input type="checkbox" id="keep loegged in" name="loggedin" value="on"/>
               <label htmlFor="keep-logged-in">hold mig logget ind</label>
             </div>
-            <div>
-                <input type="chekbox" 
-                id="keep-logged-in"
-                name="loggedin"
-                value="on"
-                defaultChecked={formState?.formData?.loggedin === "0"}/>
-            </div>
                 <div className="w-full flex items-center justify-center">
-                    <button disabled={isPending} type="submit" className="p-2 bg-blue-600 disabled:bg-gray-600">
-                        {isPending ? "Logger ind..." : "Log ind"}
-                     </button>
+                <div className="w-full flex items-center justify-center">
+                        <MultiKnap title={isPending ? "Logger ind..." : "Log ind"} onClick={() => {}} />
+                    </div>
 
                 </div>
             </section>

@@ -29,10 +29,16 @@ export default async function Login(prevState: any, formData: FormData) {
         }
 
         const data = await response.json();
-        
         const cookieStore = await cookies();
+
         const cookieMaxAge = rememberMe ? 60 * 60 * 24 * 30 : 60 * 60 * 24
         cookieStore.set("repe_token", data.token, {maxAge: cookieMaxAge})
+        cookieStore.set("role", data.role, { maxAge: cookieMaxAge })
+
+        if (data.role === "instructor") {
+            cookieStore.set("instructorId", data.id, { maxAge: cookieMaxAge });  // Gem instructorId
+        }
+
 
     } catch (err) {
         throw new Error(err instanceof Error ? err.message : "Der skete en fejl under login");
@@ -42,3 +48,4 @@ export default async function Login(prevState: any, formData: FormData) {
     redirect("/kalender");
 
 }
+ 

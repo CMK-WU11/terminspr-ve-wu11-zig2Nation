@@ -1,6 +1,6 @@
 interface MultiKnapProps{
     title: string;
-    onClick: () => void
+    onClick: () => void;
 
 }
 export default function MultiKnap({ title, onClick }: MultiKnapProps) {
