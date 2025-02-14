@@ -1,30 +1,22 @@
 "use client"
 import Tilmeld from "@/actions/tilmeld"
 import MultiKnap from "./multiKnap"
-import { useState, useTransition } from "react"
+
 interface TilmeldButtonProps {
-    danceId: string
+    danceId: string;
+    added: boolean
 }
 
-export default function TilmeldButton({ danceId }: TilmeldButtonProps) {
-    const [message, setMessage] = useState("")
-    const[isPending, startTransition] = useTransition()
+export default function TilmeldButton({ danceId, added }: TilmeldButtonProps) {
 
     async function handleTilmeld() {
-        startTransition(async () => {
-            const result = await Tilmeld(danceId)
-            if(result.success) {
-                setMessage("du er nu tilmeldt")
-            } else {
-                setMessage("noget gik galt")
-            }
-        })
+            await Tilmeld(danceId)
+    
     }
-    return(
-        <>
-        <MultiKnap title="Tilmeld" onClick={handleTilmeld}/>
-        {message && <p className="text-white">{message}</p>}
-        </>
 
+    return (
+        <>
+            {!added ? <MultiKnap title="Tilmeld" onClick={handleTilmeld} /> : <button className="bg-[#5E2E53] w-[15em] h-[3em] text-white rounded-md shadow-2xl buttonAnimation">Afmeld</button>}
+        </>
     )
 }

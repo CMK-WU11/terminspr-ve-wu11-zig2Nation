@@ -12,8 +12,20 @@ background-color: #5E2E53;
 main{
   height: 100%;
 }
-
-
+@keyframes fade-in{
+  from {
+    opacity: 0;
+    transform: translate(-50) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0) scale(1);
+  }
+}
+.buttonAnimation{
+  animation-name: fade-in;
+  animation-duration: 1.5s;
+}
 
 
 /*Mine hoved farver til mit tema*/

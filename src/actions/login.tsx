@@ -3,11 +3,12 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 export default async function Login(prevState: any, formData: FormData) {
+
     const identifier = formData.get("identifier") as string | null;
     const password = formData.get("password") as string | null;
     const rememberMe = formData.get("loggedin") === "on" ? "o" : null
-    console.log(identifier, password, rememberMe);
-    
+
+    // til begge felter skal udfyldes
     if (!identifier || !password) {
         return {
             formData: { identifier, password },
@@ -21,6 +22,7 @@ export default async function Login(prevState: any, formData: FormData) {
             body: JSON.stringify({ username: identifier, password }),
         });
 
+        //hvis der er noget fejl
         if (!response.ok) {
             return {
                 formData: { identifier, password },
@@ -34,10 +36,9 @@ export default async function Login(prevState: any, formData: FormData) {
         const cookieMaxAge = rememberMe ? 60 * 60 * 24 * 30 : 60 * 60 * 24
         cookieStore.set("repe_token", data.token, {maxAge: cookieMaxAge})
         cookieStore.set("role", data.role, { maxAge: cookieMaxAge })
+        cookieStore.set("id", data.userId, { maxAge: cookieMaxAge });
 
-        if (data.role === "instructor") {
-            cookieStore.set("instructorId", data.id, { maxAge: cookieMaxAge });  // Gem instructorId
-        }
+        
 
 
     } catch (err) {

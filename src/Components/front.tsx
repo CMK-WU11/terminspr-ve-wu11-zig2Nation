@@ -1,5 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
 import Splash from "../../public/splash-image.jpg";
 import Logo from "../../public/Logo.png";
 import Image from "next/image";
@@ -21,7 +20,7 @@ export default function Front() {
       </div>
 
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
-        <Link href="/alleDanse">
+        <Link href="/aktiviteter">
           <MultiKnap
             title="Kom i gang"
             onClick={handleClick}

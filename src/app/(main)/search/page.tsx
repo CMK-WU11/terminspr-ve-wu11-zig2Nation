@@ -23,7 +23,7 @@ export default function SearchPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   
-  // Hent "query" fra URL'en eller brug en tom string
+ // hent qurey fra urlen
   const queryFromUrl = searchParams.get("query") || "";
   const [query, setQuery] = useState(queryFromUrl);
 
@@ -40,12 +40,12 @@ export default function SearchPage() {
     fetchData();
   }, []);
 
-
+  //holder øje med og der notget der blir ændre i min query
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     setQuery(newQuery);
     
-
+  //jeg ikke henter det hele for hvert bugstav og opdatere siden
     const params = new URLSearchParams();
     if (newQuery) params.set("query", newQuery);
     router.push(`?${params.toString()}`, { scroll: false });
